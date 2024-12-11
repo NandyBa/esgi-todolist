@@ -92,7 +92,7 @@ pub struct InitializeTodo<'info> {
 }
 
 #[derive(Accounts)]
-#[instruction(todo_count_index: u64)]
+#[instruction(todo_count_index: u64)] // instruction to pass the todo_count_index as it not defined by default
 pub struct UpdateTodo<'info> {
     #[account(
         mut,
