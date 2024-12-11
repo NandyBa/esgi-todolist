@@ -59,7 +59,11 @@ pub struct InitializeUser<'info> {
         seeds = [b"user", signer.key.as_ref()],
         bump,
         payer = signer,
-        space = 8 + 32 + 50 + 8
+        space = 8 + 32 + 50 + 8 // allocation of space:
+        // 8 bytes as default
+        // 32 bytes for the public key
+        // 50 bytes for the nickname
+        // 8 bytes for the todo_count
     )]
     pub user: Account<'info, User>,
     pub system_program: Program<'info, System>,
@@ -88,7 +92,7 @@ pub struct InitializeTodo<'info> {
 }
 
 #[derive(Accounts)]
-#[instruction(todo_count_index: u64)]
+#[instruction(todo_count_index: u64)] // instruction to pass the todo_count_index as it not defined by default
 pub struct UpdateTodo<'info> {
     #[account(
         mut,
@@ -105,7 +109,7 @@ pub struct UpdateTodo<'info> {
 pub struct DeleteTodo<'info> {
     #[account(
         mut,
-        close = signer,
+        close = signer, // this line permits to allow user to be able to close the account
         seeds = [b"todo", signer.key.as_ref(), &todo_index.to_le_bytes()],
         bump,
     )]
