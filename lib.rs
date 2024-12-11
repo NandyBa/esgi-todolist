@@ -59,7 +59,11 @@ pub struct InitializeUser<'info> {
         seeds = [b"user", signer.key.as_ref()],
         bump,
         payer = signer,
-        space = 8 + 32 + 50 + 8
+        space = 8 + 32 + 50 + 8 // allocation of space:
+        // 8 bytes as default
+        // 32 bytes for the public key
+        // 50 bytes for the nickname
+        // 8 bytes for the todo_count
     )]
     pub user: Account<'info, User>,
     pub system_program: Program<'info, System>,
