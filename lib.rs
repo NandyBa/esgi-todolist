@@ -109,7 +109,7 @@ pub struct UpdateTodo<'info> {
 pub struct DeleteTodo<'info> {
     #[account(
         mut,
-        close = signer,
+        close = signer, // this line permits to allow user to be able to close the account
         seeds = [b"todo", signer.key.as_ref(), &todo_index.to_le_bytes()],
         bump,
     )]
